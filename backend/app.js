@@ -6,6 +6,9 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+// Serve files from the current directory (where output files are saved)
+app.use(express.static(__dirname));
+
 app.post("/api/convert", (req, res) => {
   const { url, format } = req.body;
 
@@ -24,7 +27,7 @@ app.post("/api/convert", (req, res) => {
 
     res.json({
       success: true,
-      downloadLink: `http://localhost:5000/${outputFile}`,
+      downloadLink: `http://localhost:5000/${outputFile}`, // This will allow download after conversion
     });
   });
 });
